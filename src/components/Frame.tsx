@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
+const DEBOUNCE_INTERVAL = 10;
+const DAMPING = 10;
+
 export default function Frame() {
-  const [debug, setDebug] = useState("20");
+  const [debug, setDebug] = useState();
+  const [bgImageShift, setBgImageShift] = useState(0);
 
   const ref = useRef<ReturnType<typeof setTimeout>>(0);
   const enabled = useRef(true);
@@ -12,7 +16,7 @@ export default function Frame() {
 
     ref.current = setTimeout(() => {
       enabled.current = true;
-    }, 500);
+    }, DEBOUNCE_INTERVAL);
   }
 
   useEffect(() => {
@@ -23,8 +27,6 @@ export default function Frame() {
       clearTimeout(ref.current);
     };
   }, []);
-
-  const [skew, setSkew] = useState();
 
   /* 
   When flat on a table
@@ -39,11 +41,7 @@ export default function Frame() {
 
     debounce();
 
-    const zDiff = orientation.current.z - event.gamma;
-
-    orientation.current.z = event.gamma;
-
-    setDebug(`zDiff: ${zDiff.toPrecision(2)} `);
+    setBgImageShift(event.gamma / DAMPING);
   }
 
   return (
@@ -52,13 +50,14 @@ export default function Frame() {
         className="frame__image"
         src="/bg_1.webp"
         alt="A very impressive bridge"
+        style={{ translate: `${bgImageShift}% 0` }}
       />
       <img
         className="frame__logo"
         src="/logo-offblack.svg"
         alt="A very impressive logo"
       />
-      <p style={{ position: "absolute" }}>{debug}</p>
+      <p style={{ position: "absolute" }}>{bgImageShift.toPrecision(3)}</p>
     </div>
   );
 }

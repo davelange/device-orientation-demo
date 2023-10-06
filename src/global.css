@@ -85,10 +85,11 @@ App
 .frame__image {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -50%;
   height: 100%;
   max-width: max-content;
-  translate: -50% 0;
+
+  transition: translate 0.5s linear;
 }
 .frame__logo {
   position: relative;
