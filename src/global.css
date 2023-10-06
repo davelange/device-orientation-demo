@@ -79,28 +79,34 @@ App
   margin: auto;
   width: 90%;
   height: 50%;
-  max-height: 600px;
+  max-height: 500px;
   max-width: 600px;
   border-radius: 16px;
   overflow: hidden;
 }
+.frame__bg-wrapper {
+  height: 120%;
+  transform-origin: center center;
+}
 .frame__image {
-  /* height: 110%; */
   height: 100%;
   max-width: max-content;
 
-  transition: transform 0.5s linear;
+  transition: opacity 0.1s linear;
 }
-.frame__image--blurred {
+.frame__blur {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  filter: blur(2px);
+  background-image: url("/bg_1.webp");
+  background-size: cover;
+  background-position: center;
+  filter: blur(1px);
   z-index: 2;
 
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 .frame__logo {
   position: absolute;
@@ -113,12 +119,4 @@ App
   transform-origin: center center;
 
   transition: transform 0.5s linear;
-}
-.frame__blur {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: red;
-  -webkit-image-mask: linear-gradient(90deg, #000, transparent);
 }
