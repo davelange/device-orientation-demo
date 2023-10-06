@@ -66,3 +66,34 @@ h6 {
 #__next {
   isolation: isolate;
 }
+
+/* 
+App
+*/
+
+.frame {
+  position: relative;
+  display: flex;
+  margin: auto;
+  width: 90%;
+  height: 50%;
+  max-height: 600px;
+  max-width: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.frame__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  max-width: max-content;
+  translate: -50% 0;
+}
+.frame__logo {
+  position: relative;
+  margin: auto;
+  width: 100px;
+  height: 100px;
+  /* fill: #161616; */
+}
