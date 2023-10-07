@@ -80,7 +80,7 @@ App
   width: 90%;
   height: 50%;
   max-height: 500px;
-  max-width: 600px;
+  max-width: 500px;
   border-radius: 16px;
   overflow: hidden;
 }
@@ -92,7 +92,7 @@ App
   height: 100%;
   max-width: max-content;
 
-  transition: opacity 0.1s linear;
+  transition: opacity 0.5s linear;
 }
 .frame__blur {
   position: absolute;
@@ -103,10 +103,11 @@ App
   background-image: url("/bg_1.webp");
   background-size: cover;
   background-position: center;
-  filter: blur(1px);
-  z-index: 2;
+  filter: blur(5px);
 
-  transition: opacity 0.2s ease;
+  -webkit-mask-image: radial-gradient(circle, transparent 20%, black 30%);
+
+  z-index: 2;
 }
 .frame__logo {
   position: absolute;
