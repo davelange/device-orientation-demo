@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
-import { DEBOUNCE_INTERVAL, LIMIT, transformsFromOrientation } from "../utils";
+import { isOffLimit, transformsFromOrientation } from "../utils";
 
 /* 
 About device orientation:
@@ -11,11 +11,10 @@ beta: X axis (front / back)
 */
 
 export default function Frame() {
-  const [orientation, setOrientation] = useState({ gamma: 0, beta: 0 });
-
+  const [gamma, setGamma] = useState(0);
   const { debounce } = useDebounce();
 
-  const debouncedEvent = debounce(handleOrientationEvent, DEBOUNCE_INTERVAL);
+  const debouncedEvent = debounce(handleOrientationEvent, 20);
 
   useEffect(() => {
     window.addEventListener("deviceorientation", debouncedEvent);
@@ -28,31 +27,20 @@ export default function Frame() {
   function handleOrientationEvent(event: DeviceOrientationEvent) {
     const { gamma, beta } = event;
 
-    if (gamma === null || beta === null) {
+    if (gamma === null || beta === null || isOffLimit(gamma)) {
       return;
     }
 
-    const offLimit = gamma < LIMIT.gamma.low || gamma > LIMIT.gamma.high;
-
-    if (offLimit) {
-      return;
-    }
-
-    setOrientation({
-      beta,
-      gamma,
-    });
+    setGamma(gamma);
   }
 
-  const { bgRotate, bgTranslate } = transformsFromOrientation(
-    orientation.gamma
-  );
+  const { translateX, rotateY } = transformsFromOrientation(gamma);
 
   return (
     <div className="frame">
       <div
         style={{
-          transform: `translateX(${bgTranslate}%) perspective(200px) rotateY(${bgRotate}deg)`,
+          transform: `translateX(${translateX}%) perspective(200px) rotateY(${rotateY}deg)`,
         }}
         className="frame__bg-wrapper"
       >

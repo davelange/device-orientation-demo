@@ -68,9 +68,8 @@ h6 {
 }
 
 /* 
-App
-*/
-
+    App
+  */
 .frame {
   position: relative;
   display: flex;
@@ -85,25 +84,22 @@ App
   overflow: hidden;
 }
 .frame__bg-wrapper {
-  height: 120%;
+  height: 125%;
   transform-origin: center center;
+
+  transition: transform 0.2s linear;
 }
 .frame__image {
   height: 100%;
   max-width: max-content;
-  box-shadow: 0 0 4px #000;
-
-  transition: opacity 0.5s linear;
 }
 .frame__vignette {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
-  background-size: cover;
-  background-position: center;
-  background: radial-gradient(circle, transparent 20%, #ffffff55 30%);
+  left: 0;  
+  background: radial-gradient(circle, transparent 20%, #fff9e977 30%);  
 
   z-index: 2;
 }
@@ -116,4 +112,3 @@ App
   margin: auto;
   z-index: 2;
 }
-

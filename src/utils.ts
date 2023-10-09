@@ -1,14 +1,17 @@
-export const DEBOUNCE_INTERVAL = 10;
-export const LIMIT = {
-  gamma: {
-    low: -40,
-    high: 40,
-  },
+const GAMMA_LIMIT = 40;
+
+export const isOffLimit = (value: number) =>
+  value < -GAMMA_LIMIT || value > GAMMA_LIMIT;
+
+const getDampingFactor = (value: number) => {
+  const absValue = Math.abs(value);
+
+  if (absValue < 10) return 5;
+  if (absValue < 20) return 7;
+  return 10;
 };
 
 export const transformsFromOrientation = (value: number) => ({
-  bgTranslate: value / 8,
-  bgRotate: (value / 5) * -1,
-  fgTranslate: value / 2,
-  fgRotate: (value / 3) * -1,
+  translateX: value / getDampingFactor(value),
+  rotateY: (value / 5) * -1,
 });
