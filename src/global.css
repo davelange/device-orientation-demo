@@ -91,21 +91,19 @@ App
 .frame__image {
   height: 100%;
   max-width: max-content;
+  box-shadow: 0 0 4px #000;
 
   transition: opacity 0.5s linear;
 }
-.frame__blur {
+.frame__vignette {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  background-image: url("/bg_1.webp");
   background-size: cover;
   background-position: center;
-  filter: blur(5px);
-
-  -webkit-mask-image: radial-gradient(circle, transparent 20%, black 30%);
+  background: radial-gradient(circle, transparent 20%, #ffffff55 30%);
 
   z-index: 2;
 }
@@ -117,7 +115,5 @@ App
   top: 0;
   margin: auto;
   z-index: 2;
-  transform-origin: center center;
-
-  transition: transform 0.5s linear;
 }
+

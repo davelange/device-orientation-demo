@@ -7,8 +7,8 @@ export const LIMIT = {
 };
 
 export const transformsFromOrientation = (value: number) => ({
-  bgTranslate: value / 20,
-  bgRotate: (value / 6) * -1,
-  fgTranslate: value / 10,
+  bgTranslate: value / 8,
+  bgRotate: (value / 5) * -1,
+  fgTranslate: value / 2,
   fgRotate: (value / 3) * -1,
 });

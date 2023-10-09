@@ -44,8 +44,9 @@ export default function Frame() {
     });
   }
 
-  const { bgRotate, bgTranslate, fgRotate, fgTranslate } =
-    transformsFromOrientation(orientation.gamma);
+  const { bgRotate, bgTranslate } = transformsFromOrientation(
+    orientation.gamma
+  );
 
   return (
     <div className="frame">
@@ -60,17 +61,9 @@ export default function Frame() {
           src="/bg_1.webp"
           alt="A very impressive bridge"
         />
-        <div className="frame__blur" />
+        <div className="frame__vignette" />
       </div>
-
-      <img
-        className="frame__logo"
-        src="/logo-offblack.svg"
-        alt="A very impressive logo"
-        style={{
-          transform: `perspective(200px) rotateY(${fgRotate}deg) translateX(${fgTranslate}%)`,
-        }}
-      />
+      <img className="frame__logo" src="/logo-offblack.svg" alt="Iron wallet" />
     </div>
   );
 }
