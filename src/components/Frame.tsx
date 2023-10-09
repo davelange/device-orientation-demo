@@ -51,7 +51,12 @@ export default function Frame() {
         />
         <div className="frame__vignette" />
       </div>
-      <img className="frame__logo" src="/logo-offblack.svg" alt="Iron wallet" />
+      <div className="frame__shadow" />
+      <img
+        className="frame__logo"
+        src="/logo-full-offblack.svg"
+        alt="Iron wallet"
+      />
     </div>
   );
 }
