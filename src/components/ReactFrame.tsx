@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import useDebounce from "../hooks/useDebounce";
-import { isOffLimit, transformsFromOrientation } from "../utils";
+import { throttle, isOffLimit, transformsFromOrientation } from "../lib.ts";
 
 /* 
 About device orientation:
@@ -10,11 +9,10 @@ gamma: Z axis (left / right)
 beta: X axis (front / back)
 */
 
-export default function Frame() {
+export default function ReactFrame() {
   const [gamma, setGamma] = useState(0);
-  const { debounce } = useDebounce();
 
-  const debouncedEvent = debounce(handleOrientationEvent, 20);
+  const debouncedEvent = throttle(handleOrientationEvent, 20);
 
   useEffect(() => {
     window.addEventListener("deviceorientation", debouncedEvent);
