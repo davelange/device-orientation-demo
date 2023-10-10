@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
-import { throttle, isOffLimit, transformsFromOrientation } from "../lib.ts";
-
-/* 
-About device orientation:
-
-Assuming device flat on a table
-gamma: Z axis (left / right)
-beta: X axis (front / back)
-*/
+import {
+  throttle,
+  isOffLimit,
+  transformsFromOrientation,
+  calcMousePosToCenter,
+} from "../lib.ts";
 
 export default function ReactFrame() {
-  const [gamma, setGamma] = useState(0);
+  const [gamma, setGamma] = useState<number | undefined>();
+  const [mouseX, setMouseX] = useState<number | undefined>();
 
   const debouncedEvent = throttle(handleOrientationEvent, 20);
 
   useEffect(() => {
     window.addEventListener("deviceorientation", debouncedEvent);
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       window.removeEventListener("deviceorientation", debouncedEvent);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -32,7 +32,17 @@ export default function ReactFrame() {
     setGamma(gamma);
   }
 
-  const { translateX, rotateY } = transformsFromOrientation(gamma);
+  function handleMouseMove(event: MouseEvent) {
+    const xMotion = calcMousePosToCenter(window.innerWidth, event.clientX);
+
+    if (xMotion === null) {
+      return;
+    }
+
+    setMouseX(xMotion);
+  }
+
+  const { translateX, rotateY } = transformsFromOrientation({ gamma, mouseX });
 
   return (
     <div className="frame">
@@ -47,9 +57,7 @@ export default function ReactFrame() {
           src="/bg_1.webp"
           alt="A very impressive bridge"
         />
-        <div className="frame__vignette" />
       </div>
-      <div className="frame__shadow" />
       <img
         className="frame__logo"
         src="/logo-full-offblack.svg"
