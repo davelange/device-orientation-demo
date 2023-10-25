@@ -4,11 +4,15 @@ import {
   isOffLimit,
   transformsFromOrientation,
   calcMousePosToCenter,
+  GAMMA_LIMIT,
+  isMobileDevice,
 } from "../lib.ts";
 
 export default function ReactFrame() {
   const [gamma, setGamma] = useState<number | undefined>();
   const [mouseX, setMouseX] = useState<number | undefined>();
+
+  const isMobile = isMobileDevice();
 
   const debouncedEvent = throttle(handleOrientationEvent, 20);
 
@@ -23,9 +27,9 @@ export default function ReactFrame() {
   }, []);
 
   function handleOrientationEvent(event: DeviceOrientationEvent) {
-    const { gamma, beta } = event;
+    const { gamma } = event;
 
-    if (gamma === null || beta === null || isOffLimit(gamma)) {
+    if (gamma === null || isOffLimit(gamma, GAMMA_LIMIT) || isMobile) {
       return;
     }
 
@@ -33,6 +37,8 @@ export default function ReactFrame() {
   }
 
   function handleMouseMove(event: MouseEvent) {
+    if (isMobile) return;
+
     const xMotion = calcMousePosToCenter(window.innerWidth, event.clientX);
 
     if (xMotion === null) {

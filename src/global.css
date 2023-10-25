@@ -16,6 +16,7 @@
 html,
 body {
   height: 100%;
+  overflow: hidden;
 }
 
 /*
@@ -76,15 +77,15 @@ h6 {
   justify-content: center;
   align-items: center;
   margin: auto;
-  width: 600px;
+  width: 500px;
   max-width: 90%;
-  aspect-ratio: 1;
+  aspect-ratio: 1.125 / 1;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 0 16px -8px #000; 
+  box-shadow: 0 0 15px -5px #000000ee;
 }
 .frame__bg-wrapper {
-  height: 125%;
+  height: 130%;
   transform-origin: center center;
 
   transition: transform 0.2s linear;
@@ -92,27 +93,6 @@ h6 {
 .frame__image {
   height: 100%;
   max-width: max-content;
-}
-.frame__vignette {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: radial-gradient(circle, transparent 20%, #fff9e977 30%);
-
-  z-index: 2;
-}
-.frame__shadow {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  box-shadow: inset 0 0 20px #fff9e977;
-  border-radius: 20px;
-
-  z-index: 2;
 }
 .frame__logo {
   position: absolute;

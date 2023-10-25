@@ -1,6 +1,6 @@
-const GAMMA_LIMIT = 40;
-const MOUSE_POS_LIMIT = 340;
-const MOUSE_X_LIMIT = 16;
+export const GAMMA_LIMIT = 40;
+export const MOUSE_POS_LIMIT = 340;
+export const MOUSE_X_LIMIT = 300;
 
 /* 
 About device orientation:
@@ -10,24 +10,38 @@ gamma: Z axis (left / right)
 beta: X axis (front / back)
 */
 
-export const isOffLimit = (value: number) =>
-  value < -GAMMA_LIMIT || value > GAMMA_LIMIT;
+export const isMobileDevice = () => {
+  if (typeof window === "undefined" || !window) return false;
+
+  return "ontouchstart" in window?.document?.documentElement;
+};
+
+export const isOffLimit = (value: number, limit: number) =>
+  value < -limit || value > limit;
 
 export function calcMousePosToCenter(window: number, pos: number) {
   const mid = window / 2;
   const diff = mid - pos;
-  const dir = Math.sign(diff);
-  const absDiff = Math.abs(diff);
 
-  if (absDiff > MOUSE_POS_LIMIT) {
+  if (isOffLimit(diff, MOUSE_POS_LIMIT)) {
     return null;
   }
 
-  return ((absDiff * 5) / 100) * dir;
+  return diff;
 }
 
 function easeOutQuint(x: number): number {
   return 1 - Math.pow(1 - x, 5);
+}
+
+function easeOutCirc(x: number): number {
+  return Math.sqrt(1 - Math.pow(x - 1, 2));
+}
+function lin(x: number): number {
+  return x;
+}
+function easeOutExpo(x: number): number {
+  return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
 }
 
 function getEasedValue({
@@ -54,12 +68,12 @@ export const transformsFromOrientation = ({
 }) => {
   if (gamma !== undefined) {
     const translateX = getEasedValue({
-      maxOutput: 3.84,
+      maxOutput: 7,
       maxPosition: GAMMA_LIMIT,
       value: gamma,
     });
     const rotateY = getEasedValue({
-      maxOutput: 7.9,
+      maxOutput: 7.8,
       maxPosition: GAMMA_LIMIT,
       value: gamma,
     });
@@ -72,12 +86,12 @@ export const transformsFromOrientation = ({
 
   if (mouseX !== undefined) {
     const translateX = getEasedValue({
-      maxOutput: 4.17,
+      maxOutput: 15,
       maxPosition: MOUSE_X_LIMIT,
       value: mouseX,
     });
     const rotateY = getEasedValue({
-      maxOutput: 3.35,
+      maxOutput: 3.55,
       maxPosition: MOUSE_X_LIMIT,
       value: mouseX,
     });
