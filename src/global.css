@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Londrina+Shadow&display=swap");
+
 /*
   1. Use a more-intuitive box-sizing model.
 */
@@ -94,12 +96,27 @@ h6 {
   height: 100%;
   max-width: max-content;
 }
-.frame__logo {
+.frame__text {
   position: absolute;
-  width: 200px;
-  height: 100px;
+  text-align: center;
+  height: fit-content;
   inset: 0;
   top: 0;
   margin: auto;
   z-index: 2;
+  font-family: "Londrina Shadow", cursive;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  line-height: 1;
+  font-weight: bold;
+
+  & h1 {
+    font-size: 82px;
+    color: #333;
+  }
+
+  & span {
+    font-size: 64px;
+    color: #333;
+  }
 }

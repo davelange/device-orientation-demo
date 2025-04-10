@@ -64,11 +64,10 @@ export default function ReactFrame() {
           alt="A very impressive bridge"
         />
       </div>
-      <img
-        className="frame__logo"
-        src="/logo-full-offblack.svg"
-        alt="Iron wallet"
-      />
+      <div className="frame__text">
+        <h1>Hello</h1>
+        <span>world</span>
+      </div>
     </div>
   );
 }

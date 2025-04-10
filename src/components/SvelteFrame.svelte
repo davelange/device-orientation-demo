@@ -51,5 +51,8 @@
   >
     <img class="frame__image" src="/bg_1.webp" alt="A very impressive bridge" />
   </div>
-  <img class="frame__logo" src="/logo-full-offblack.svg" alt="Iron wallet" />
+  <div class="frame__text">
+    <h1>Hello</h1>
+    <span>world</span>
+  </div>
 </div>
